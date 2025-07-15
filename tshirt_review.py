@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # review_app.py – user reviews only items they bought
 import streamlit as st
+from PIL import Image
 import pandas as pd
 from datetime import datetime
 from sqlalchemy import create_engine, text
@@ -9,7 +10,7 @@ from sqlalchemy import create_engine, text
 @st.cache_resource
 def get_engine():
     return create_engine(
-        "postgresql+psycopg2://postgres:itversity@localhost:6432/postgres",
+        "postgresql+psycopg2://postgres:itversity@154.180.213.75:6432/postgres",
         pool_pre_ping=True,
     )
 
@@ -71,7 +72,8 @@ item_row = st.selectbox(
 )
 
 # display product image
-st.image(item_row.image_url, width=450, caption=item_row.product_name)
+image = Image.open(item_row.image_url)
+st.image(image, width=450, caption=item_row.product_name)
 
 # write review
 review_txt = st.text_area("Write your review here", height=120)
