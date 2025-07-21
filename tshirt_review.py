@@ -10,7 +10,6 @@ from sqlalchemy import create_engine, text
 @st.cache_resource
 def get_engine():
     url = f'postgresql+psycopg2://{st.secrets["DB_USERNAME"]}:{st.secrets["DB_PW"]}@{st.secrets["DB_HOST"]}:{st.secrets["DB_PORT"]}/{st.secrets["DB_NAME"]}'
-    print("URL::::::", url)
     return create_engine(
         url,
         pool_pre_ping=True,
